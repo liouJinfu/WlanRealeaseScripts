@@ -36,6 +36,22 @@ def excelRd():
             merge.append([rlow, clow])
         for index in merge:
             print(everySheet.cell_value(index[0], index[1]))
+def write_conten(titles, kvalus):
+    os.chdir(r"D:\scripts\WlanRealeaseScripts")
+    file = xlwt.Workbook()
+    table = file.add_sheet("log_info",cell_overwrite_ok=False)
+    style = xlwt.XFStyle()
+    font = xlwt.Font()
+    font.name = "Times New Roman"
+    font.bold =True
+    style.font = font
+    for index in range(0, len(titles)):
+        table.write(0, index, titles[index], style)
+    for index in range(0, len(kvalus)):
+        for index2 in range(0, len(titles)):
+            table.write(index+1, index2, kvalus[index].get(titles[index2]))
+    file.save("svnlog.xls")
+
 def excelWt():
     file=xlwt.Workbook()
     table = file.add_sheet("mysheet",cell_overwrite_ok=True)
@@ -47,7 +63,7 @@ def excelWt():
     table.write(0, 0, 'some bold Times text', style)  # 使用样式
     file.save('test2.xls')
 if __name__ == '__main__':
-    _PATH=r"D:\MyTestSvn\proj"
+    _PATH=r"D:\MyTestSvn\proj\branches\branch1"
     os.chdir(_PATH)
     cmd = r'svn log -r 4:HEAD -v --xml'
     pro = subprocess.Popen(cmd,
@@ -69,16 +85,21 @@ if __name__ == '__main__':
     except Exception as E:
         print("parse test1.xml fail!")
         sys.exit()
-
-    pattern =re.compile(r'(.*).data')
+    contens = []
+    pattern =re.compile(r'(.*).c')
     # commit_attrs = root.findall('logentry/path')
     for item in root.iter('logentry'):
         entry_info={x.tag:x.text  for x in item.getchildren()}
+        titles = [x.tag for x in list(item)]
+        # write_title(titles)
         print(entry_info)
         for e in item.findall('paths/path'):
             print(e.attrib, e.text)
+            entry_info['paths'] = entry_info['paths'] + '\n'+e.text
             if(None != re.match(pattern, e.text)):
                 print("find the same :", e.text)
+        contens.append(entry_info)
+    write_conten(titles, contens)
     # print("root type:", type(root))
     # print(root.tag, "----", root.attrib)
     # #遍历root的下一层
