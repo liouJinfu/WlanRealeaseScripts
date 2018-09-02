@@ -119,7 +119,7 @@ def Excel_Test():
     # print(root.tag, "----", root.attrib)
     # #遍历root的下一层
     # for child in root:
-6    #     captionList = child.findall("author")  # 在当前指定目录下遍历
+   #     captionList = child.findall("author")  # 在当前指定目录下遍历
     #     print(len(captionList))
     #     for caption in captionList:
     #         print(caption.tag, "----", caption.attrib, "----", caption.text)
