@@ -1,6 +1,6 @@
 # --*-- coding:utf-8 --*--
 import getpass, subprocess, os
-
+from WlanRealeaseScripts.Excel import Excel_Test
 def Get_Uer_LogInfo():
     name = input('请输入用户名：')
     passwd = getpass.getpass('请输入密码：')
@@ -18,3 +18,5 @@ _PATH = r'D:\\MyTestSvn\\'
 #             print(outs, errs)
 #         except TimeoutError:
 #             print('out of time')
+if __name__ == '__main__':
+    Excel_Test()

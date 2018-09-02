@@ -36,33 +36,54 @@ def excelRd():
             merge.append([rlow, clow])
         for index in merge:
             print(everySheet.cell_value(index[0], index[1]))
-def write_conten(titles, kvalus):
-    os.chdir(r"D:\scripts\WlanRealeaseScripts")
+def get_title_style(style_number=None):
+    # 设置标题的样式
+    ##设置标题单元格的格式
+    title_style = xlwt.XFStyle()
+    title_pattern = xlwt.Pattern()
+    title_pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+    # 设置单元格背景颜色 0 = Black, 1 = White, 2 = Red, 3 = Green, 4 = Blue, 5 = Yellow, 6 = Magenta
+    title_pattern.pattern_fore_colour = 3
+    # 设置标题单元格字体样式
+    title_font = xlwt.Font()
+    title_font.name = u'微软雅黑'
+    title_font.bold = True
+    # 设置颜色 0 = Black, 1 = White, 2 = Red, 3 = Green, 4 = Blue, 5 = Yellow, 6 = Magenta
+    title_font.colour_index = 0
+    title_style.font = title_font
+    title_style.pattern = title_pattern
+    return title_style
+
+def get_cont_style(style_number = None):
+    # 设置内容的单元格格式
+    cont_style = xlwt.XFStyle()
+    cont_pattern = xlwt.Pattern()
+    cont_pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+    # 设置单元格背景颜色 0 = Black, 1 = White, 2 = Red, 3 = Green, 4 = Blue, 5 = Yellow, 6 = Magenta,  the list goes on...
+    cont_pattern.pattern_fore_colour = 1
+    # 设置标题单元格字体样式
+    cont_font = xlwt.Font()
+    cont_font.name = u'Times New Roman'
+    cont_font.bold = False
+    # 设置颜色 0 = Black, 1 = White, 2 = Red, 3 = Green, 4 = Blue, 5 = Yellow, 6 = Magenta,
+    cont_font.colour_index = 0
+    cont_style.font = cont_font
+    cont_style.pattern = cont_pattern
+    return cont_style
+def write_conten(titles, kvalus,path = None):
     file = xlwt.Workbook()
     table = file.add_sheet("log_info",cell_overwrite_ok=False)
-    style = xlwt.XFStyle()
-    font = xlwt.Font()
-    font.name = "Times New Roman"
-    font.bold =True
-    style.font = font
+    title_style= get_title_style(style_number=1)
+    cont_style=get_cont_style(style_number=1)
     for index in range(0, len(titles)):
-        table.write(0, index, titles[index], style)
+        table.write(0, index, titles[index], title_style)
     for index in range(0, len(kvalus)):
         for index2 in range(0, len(titles)):
-            table.write(index+1, index2, kvalus[index].get(titles[index2]))
-    file.save("svnlog.xls")
+            table.write(index+1, index2, kvalus[index].get(titles[index2]),cont_style)
+    save_path = os.path.join(path, 'LibReleaseLog.xls')
+    file.save(save_path)
 
-def excelWt():
-    file=xlwt.Workbook()
-    table = file.add_sheet("mysheet",cell_overwrite_ok=True)
-    style = xlwt.XFStyle()  # 初始化样式
-    font = xlwt.Font()  # 为样式创建字体
-    font.name = 'Times New Roman'
-    font.bold = True
-    style.font = font  # 为样式设置字体
-    table.write(0, 0, 'some bold Times text', style)  # 使用样式
-    file.save('test2.xls')
-if __name__ == '__main__':
+def Excel_Test():
     _PATH=r"D:\MyTestSvn\proj\branches\branch1"
     os.chdir(_PATH)
     cmd = r'svn log -r 4:HEAD -v --xml'
@@ -74,19 +95,13 @@ if __name__ == '__main__':
     except Exception:
         print(outs,errs)
     print(outs, errs)
-    # os.chdir(r'D:\scripts\WlanLibRelease')
-    # FILE = open(r"test1.xml", 'w+')
-    # FILE.write(str(outs, 'utf-8'))
-    # FILE.close()
-
     try:
-
         root=EI.fromstring(outs)
     except Exception as E:
         print("parse test1.xml fail!")
         sys.exit()
     contens = []
-    pattern =re.compile(r'(.*).c')
+    pattern =re.compile('(.*).c')
     # commit_attrs = root.findall('logentry/path')
     for item in root.iter('logentry'):
         entry_info={x.tag:x.text  for x in item.getchildren()}
@@ -96,16 +111,15 @@ if __name__ == '__main__':
         for e in item.findall('paths/path'):
             print(e.attrib, e.text)
             entry_info['paths'] = entry_info['paths'] + '\n'+e.text
-            if(None != re.match(pattern, e.text)):
+            if(None != re.match(pattern, e.text)) and entry_info['author'] == 'liujinfu':
                 print("find the same :", e.text)
         contens.append(entry_info)
-    write_conten(titles, contens)
+    write_conten(titles, contens,path=r'D:\scripts\WlanRealeaseScripts')
     # print("root type:", type(root))
     # print(root.tag, "----", root.attrib)
     # #遍历root的下一层
     # for child in root:
-    #     print ("遍历root的下一层", child.tag, "----", child.attrib)
-    #     captionList = child.findall("author")  # 在当前指定目录下遍历
+6    #     captionList = child.findall("author")  # 在当前指定目录下遍历
     #     print(len(captionList))
     #     for caption in captionList:
     #         print(caption.tag, "----", caption.attrib, "----", caption.text)
