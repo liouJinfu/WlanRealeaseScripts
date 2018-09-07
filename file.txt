@@ -1,0 +1,34 @@
+commit_id=6632c3c; commitor=lioujinfu; commit_date=2018-09-07 23:36:41 +0800; author=删除多余xml文件
+D	test1.xml
+
+commit_id=4e2938c; commitor=lioujinfu; commit_date=2018-09-03 00:51:17 +0800; author=修复问题
+M	Excel.py
+
+commit_id=5695a55; commitor=lioujinfu; commit_date=2018-09-03 00:47:32 +0800; author="提供查询功能"
+M	Excel.py
+A	LibReleaseLog.xls
+A	__pycache__/Excel.cpython-37.pyc
+A	__pycache__/__init__.cpython-37.pyc
+M	main.py
+
+commit_id=d5a2c76; commitor=lioujinfu; commit_date=2018-09-01 00:57:01 +0800; author=测试log信息写入到excel功能
+M	Excel.py
+A	svnlog.xls
+
+commit_id=a87ccad; commitor=lioujinfu; commit_date=2018-08-26 23:46:51 +0800; author=second
+A	Excel.py
+A	SvnOperation.py
+A	__init__.py
+A	main.py
+A	svnconfig.py
+A	test.py
+A	test.xls
+A	test.xlsx
+A	test.xml
+A	test1.xml
+A	test2.xls
+A	test3.xls
+A	xmlTest.py
+
+commit_id=5aa9d9b; commitor=lioujinfu; commit_date=2018-08-26 23:43:32 +0800; author=first commit
+A	README.md

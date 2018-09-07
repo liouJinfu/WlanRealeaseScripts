@@ -1,0 +1,34 @@
+6632c3c	lioujinfu	Fri Sep 7 23:36:41 2018 +0800	删除多余xml文件删除多余xml文件
+D	test1.xml
+
+4e2938c	lioujinfu	Mon Sep 3 00:51:17 2018 +0800	修复问题修复问题
+M	Excel.py
+
+5695a55	lioujinfu	Mon Sep 3 00:47:32 2018 +0800	"提供查询功能""提供查询功能"
+M	Excel.py
+A	LibReleaseLog.xls
+A	__pycache__/Excel.cpython-37.pyc
+A	__pycache__/__init__.cpython-37.pyc
+M	main.py
+
+d5a2c76	lioujinfu	Sat Sep 1 00:57:01 2018 +0800	测试log信息写入到excel功能测试log信息写入到excel功能
+M	Excel.py
+A	svnlog.xls
+
+a87ccad	lioujinfu	Sun Aug 26 23:46:51 2018 +0800	secondsecond
+A	Excel.py
+A	SvnOperation.py
+A	__init__.py
+A	main.py
+A	svnconfig.py
+A	test.py
+A	test.xls
+A	test.xlsx
+A	test.xml
+A	test1.xml
+A	test2.xls
+A	test3.xls
+A	xmlTest.py
+
+5aa9d9b	lioujinfu	Sun Aug 26 23:43:32 2018 +0800	first commitfirst commit
+A	README.md
