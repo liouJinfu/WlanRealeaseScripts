@@ -21,7 +21,9 @@ git log --pretty=format:"%h%x09%an%x09%ad%x09%s"
 if __name__ == '__main__':
     _PATH = r'D:\scripts\WlanRealeaseScripts'
     sonDirs = os.listdir(_PATH)
-    cmd = "git log --name-status --date=iso  --pretty=format:\"commit_id=%h; commitor=%cn; commit_date=%cd; contents=%s\">log.txt"
+    cmd = "git log --name-status --date=iso  --pretty=format:\"commit_id=%h; commitor=%cn; commit_date=%cd; contents=%s\" >log.txt"
     for dir in sonDirs:
         if os.path.isdir(dir):
+            os.chdir(dir)
             os.system(cmd)
+            print(dir)
