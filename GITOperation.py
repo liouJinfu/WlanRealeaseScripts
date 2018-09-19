@@ -58,8 +58,8 @@ if __name__ == '__main__':
     title_cells = wlan_log_sheet.iter_cols(min_col=1, max_col=4, max_row=1)
     row_index = 1
     colum_index = 1
-    title_string = ['commitId', 'commitor', 'commit_date', 'contents','diffs']
-    for colum in range(1, 6):
+    title_string = ['commitId', 'commitor', 'commit_date', 'contents','state','path']
+    for colum in range(1,7):
         C = wlan_log_sheet.cell(row=row_index, column=colum, value=title_string[colum - 1])
         C.font = tile_font_style
         C.fill = title_fill_style
@@ -116,20 +116,9 @@ if __name__ == '__main__':
         wlan_log_sheet.cell(row=row_index, column=colum_index + 1, value=conf_parse[section]['commitor'])
         wlan_log_sheet.cell(row=row_index, column=colum_index + 2, value=conf_parse[section]['commit_date'])
         wlan_log_sheet.cell(row=row_index, column=colum_index + 3, value=conf_parse[section]['contents'])
-        wlan_log_sheet.cell(row=row_index, column=colum_index + 4, value=conf_parse[section]['diffs'])
-
-        # wlan_log_sheet[row_index][colum_index+1] = section['commit_id']
-        # wlan_log_sheet[row_index][colum_index+2] = section['commitor']
-        # wlan_log_sheet[row_index][colum_index+3] = section['commit_date']
-        # wlan_log_sheet[row_index][colum_index+4] = section['contents']
-        # wlan_log_sheet[row_index][colum_index+5] = section['diffs']
+        diffs = conf_parse[section]['diffs'].split()
+        wlan_log_sheet.cell(row=row_index, column=colum_index + 4, value=diffs[0])
+        wlan_log_sheet.cell(row=row_index, column=colum_index + 5, value=diffs[1])
         row_index+=1
     wb.save('Wlan Log.xlsx')
-    # for section in sections:
-    #     print(section['commit_id'])
-    #     print(section['commitor'])
-    #     print(section['commit_date'])
-    #     print(section['contents'])
-    #     print(section['diifs'])
-
 
